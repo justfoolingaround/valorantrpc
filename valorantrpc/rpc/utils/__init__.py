@@ -23,8 +23,8 @@ game_modes = {
 
 
 RANK_UNKNOWN = (
-    "Unknown",
     "https://media.valorant-api.com/competitivetiers/e4e9a692-288f-63ca-7835-16fbf6234fda/0/largeicon.png",
+    "Unknown",
 )
 
 
