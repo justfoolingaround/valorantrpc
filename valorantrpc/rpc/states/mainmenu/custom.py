@@ -34,7 +34,7 @@ def set_presence(session, rpc_client, client_data):
 
     return rpc_client.update(
         state=state,
-        details="CUSTOM",
+        details="Custom",
         large_image=gamemap_asset,
         large_text=gamemap,
         small_image=small_image,

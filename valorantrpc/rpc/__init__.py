@@ -33,6 +33,7 @@ def start_rpc_client(
 
         loop_state = presence["sessionLoopState"]
         party_state = presence["partyState"]
+        provisioning_flow = presence["provisioningFlow"]
 
         rpc_callback = None
 
@@ -46,7 +47,7 @@ def start_rpc_client(
                     rpc_callback = custom.set_presence
         else:
             if loop_state == "INGAME":
-                if party_state == "PRACTICE":
+                if provisioning_flow == "ShootingRange":
                     rpc_callback = practice.set_presence
                 else:
                     rpc_callback = playing.set_presence

@@ -12,7 +12,7 @@ This project can be installed on to your device via the source code download mec
 - Source Code Download
 
     ```
-    $ git clone https://www.github.com/justfoolingaround/animdl
+    $ git clone https://www.github.com/justfoolingaround/valorantrpc
     ```
 
     Given that you have [`git`](https://git-scm.com/) installed, you can clone the repository from GitHub. If you do not have or want to deal with installation of [`git`](https://git-scm.com/), you can simply download the repository using [this link.](https://github.com/justfoolingaround/animdl/archive/refs/heads/master.zip)
