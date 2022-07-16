@@ -7,7 +7,6 @@ import time
 import click
 import httpx
 import rich
-from black import err
 from rich.traceback import install
 
 from .cli.commands.utils.process import get_rcs_path, is_valorant_running
