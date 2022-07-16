@@ -4,6 +4,7 @@ import threading
 import time
 
 import pypresence
+from httpx import HTTPError
 
 from .states import pregame
 from .states.ingame import playing, practice
@@ -24,7 +25,10 @@ def start_rpc_client(
 
     while not close_event.isSet():
 
-        raw = client.fetch_current_user_presence()
+        try:
+            raw = client.fetch_current_user_presence()
+        except HTTPError:
+            return close_event.set()
 
         if raw is None:
             continue
@@ -35,25 +39,25 @@ def start_rpc_client(
         party_state = presence["partyState"]
         provisioning_flow = presence["provisioningFlow"]
 
-        rpc_callback = None
+        rpc_module = None
 
         if loop_state == "MENUS":
             if party_state == "DEFAULT":
-                rpc_callback = default.set_presence
+                rpc_module = default
             else:
                 if party_state == "MATCHMAKING":
-                    rpc_callback = queue.set_presence
+                    rpc_module = queue
                 else:
-                    rpc_callback = custom.set_presence
+                    rpc_module = custom
         else:
             if loop_state == "INGAME":
                 if provisioning_flow == "ShootingRange":
-                    rpc_callback = practice.set_presence
+                    rpc_module = practice
                 else:
-                    rpc_callback = playing.set_presence
+                    rpc_module = playing
             else:
-                rpc_callback = pregame.set_presence
+                rpc_module = pregame
 
-        rpc_callback(client.session, rpc_client, presence)
+        rpc_module.set_presence(client.session, rpc_client, presence)
 
         time.sleep(refresh)

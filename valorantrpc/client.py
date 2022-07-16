@@ -66,9 +66,11 @@ class LOCALVALORANTClient:
 
     def iter_presences(self):
 
-        for presence in self.local_api_client.act(
-            self.session, endpoint="/chat/v4/presences"
-        ).json()["presences"]:
+        for presence in (
+            self.local_api_client.act(self.session, endpoint="/chat/v4/presences")
+            .json()
+            .get("presences", [])
+        ):
             yield presence
 
     def fetch_sessions(self):
@@ -108,9 +110,11 @@ class LOCALVALORANTClient:
         ).json()
 
     def fetch_friend_requests(self):
-        return self.local_api_client.act(
-            self.session, endpoint="/chat/v4/friendrequests"
-        ).json()["requests"]
+        return (
+            self.local_api_client.act(self.session, endpoint="/chat/v4/friendrequests")
+            .json()
+            .get("requests", [])
+        )
 
     def fetch_current_user_presence(self):
 
@@ -122,3 +126,6 @@ class LOCALVALORANTClient:
                 current_user["tag_line"],
             ):
                 return _
+
+
+# TODO: def view_client(client: LOCALVALORANTClient, console: rich.console.Console) -> None: ...

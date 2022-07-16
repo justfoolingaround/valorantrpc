@@ -1,10 +1,9 @@
-from ...utils import (
-    get_party_information,
-    get_gamemode_information,
-    get_competitive_rank_information,
-)
-
 from ...states import idle
+from ...utils import (
+    get_competitive_rank_information,
+    get_gamemode_information,
+    get_party_information,
+)
 
 
 def set_presence(session, rpc_client, client_data):

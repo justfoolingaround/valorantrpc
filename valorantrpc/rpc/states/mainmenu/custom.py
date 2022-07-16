@@ -1,10 +1,5 @@
-from ...utils import (
-    get_party_information,
-    get_map_information,
-)
-
 from ...states import idle
-
+from ...utils import get_map_information, get_party_information
 
 custom_game_states = {
     "TeamOne": "Defending",

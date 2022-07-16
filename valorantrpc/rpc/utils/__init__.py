@@ -94,10 +94,13 @@ def get_map_information(session, data):
 
 def get_gamemode_information(data):
     game_mode, has_icon = game_modes.get(data["queueId"], ("Custom", False))
-    return f"mode_{data['queueId']}" if has_icon else "discovery", game_mode
+    return (f"mode_{data['queueId']}" if has_icon else "discovery"), game_mode
 
 
 def parse_datetime(datetime_string):
     return time.mktime(
-        (datetime.strptime(datetime_string, "%Y.%m.%d-%H.%M.%S") + (datetime.now() - datetime.utcnow())).timetuple()
+        (
+            datetime.strptime(datetime_string, "%Y.%m.%d-%H.%M.%S")
+            + (datetime.now() - datetime.utcnow())
+        ).timetuple()
     )

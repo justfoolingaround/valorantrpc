@@ -1,4 +1,5 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
+
 from valorantrpc.cli.__core__ import __version__
 
 with open("requirements.txt", "r") as requirements_file:

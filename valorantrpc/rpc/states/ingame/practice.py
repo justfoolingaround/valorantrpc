@@ -1,9 +1,8 @@
 from ...utils import (
-    get_party_information,
     get_competitive_rank_information,
+    get_party_information,
     parse_datetime,
 )
-
 from .. import idle
 
 

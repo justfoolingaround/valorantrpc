@@ -1,11 +1,10 @@
 from ...utils import (
-    get_party_information,
-    get_gamemode_information,
     get_competitive_rank_information,
+    get_gamemode_information,
+    get_map_information,
+    get_party_information,
     parse_datetime,
-    get_map_information
 )
-
 from .. import idle
 
 
@@ -18,12 +17,12 @@ def set_presence(session, rpc_client, client_data):
 
     state, party_size = get_party_information(client_data)
     gamemode_asset, gamemode = get_gamemode_information(client_data)
-    gamemap, gamemap_asset = get_map_information(session, client_data)
+    large_text, large_image = get_map_information(session, client_data)
 
     if client_data["queueId"] == "competitive":
-        large_image, large_text = get_competitive_rank_information(session, client_data)
+        small_image, small_text = get_competitive_rank_information(session, client_data)
     else:
-        large_image, large_text = gamemap_asset, gamemap
+        small_image, small_text = gamemode_asset, gamemode
 
     ally_score, enemy_score = (
         client_data["partyOwnerMatchScoreAllyTeam"],
@@ -33,8 +32,8 @@ def set_presence(session, rpc_client, client_data):
     return rpc_client.update(
         state=state,
         details=f"{gamemode} // {ally_score} - {enemy_score}",
-        small_image=gamemode_asset,
-        small_text=gamemode,
+        small_image=small_image,
+        small_text=small_text,
         large_image=large_image,
         large_text=large_text,
         party_size=party_size,
